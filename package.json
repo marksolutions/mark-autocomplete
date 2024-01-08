@@ -12,12 +12,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/bhi10/mark-autocomplete"
+    "url": "https://github.com/marksolutions/mark-autocomplete"
   },
   "bugs": {
-    "url": "https://github.com/bhi10/mark-autocomplete/issues"
+    "url": "https://github.com/marksolutions/mark-autocomplete/issues"
   },
-  "homepage": "https://github.com/bhi10/mark-autocomplete",
+  "homepage": "https://github.com/marksolutions/mark-autocomplete",
   "author": {
     "name": "Hiten Bhayani",
     "email": "hitenbhayani41@gmail.com",
