@@ -1,7 +1,9 @@
 import { LitElement, css, html } from 'lit';
-import '../src/mark-autocomplete';
+import { customElement } from 'lit/decorators.js';
+import '../src/mark-autocomplete.js';
 import { country_list, country_list_with_code } from './utils.js';
 
+@customElement('mark-autocomplete-demo')
 export class MarkAutocompleteDemo extends LitElement {
   static styles = [
     css`
@@ -37,5 +39,3 @@ export class MarkAutocompleteDemo extends LitElement {
     return resJson?.results;
   }
 }
-
-customElements.define('mark-autocomplete-demo', MarkAutocompleteDemo);
