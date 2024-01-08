@@ -1,11 +1,7 @@
-import { defineConfig } from 'vite'
-import dns from 'dns'
-
-dns.setDefaultResultOrder('verbatim')
+import { defineConfig } from 'vite';
 
 export default defineConfig({
   server: {
-    open: '/demo/index.html',
-    port: 3000
+    open: '/demo/index.html'
   },
-})
+});
