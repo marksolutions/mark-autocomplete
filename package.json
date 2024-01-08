@@ -1,0 +1,53 @@
+{
+  "name": "@markai/mark-autocomplete",
+  "version": "0.0.0-development",
+  "description": "Input text, with suggestions displayed based on the provided data.",
+  "main": "mark-autocomplete.js",
+  "type": "module",
+  "scripts": {
+    "start": "vite",
+    "build": "tsc",
+    "semantic-release": "semantic-release",
+    "publish": "tsc && semantic-release"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bhi10/mark-autocomplete"
+  },
+  "bugs": {
+    "url": "https://github.com/bhi10/mark-autocomplete/issues"
+  },
+  "homepage": "https://github.com/bhi10/mark-autocomplete",
+  "author": {
+    "name": "Hiten Bhayani",
+    "email": "hitenbhayani41@gmail.com",
+    "url": "https://github.com/bhi10"
+  },
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "lit": "^3.1.0",
+    "lodash-es": "^4.17.21"
+  },
+  "devDependencies": {
+    "@types/lodash-es": "^4.17.12",
+    "prettier": "^3.1.1",
+    "semantic-release": "^22.0.12",
+    "tslib": "^2.6.2",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.11"
+  },
+  "release": {
+    "branches": [
+      "+([0-9])?(.{+([0-9]),x}).x",
+      "main",
+      {
+        "name": "feature/*",
+        "prerelease": "${name.replace(/^feature\\//g, \"\")}",
+        "channel": "${name.replace(/^feature\\//g, \"\")}"
+      }
+    ]
+  }
+}

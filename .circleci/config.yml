@@ -1,0 +1,43 @@
+version: 2
+jobs:
+  release-snapshot:
+    docker:
+      - image: cimg/node:lts
+    steps:
+      - checkout
+      - run: yarn install --frozen-lockfile --non-interactive
+      - run:
+          name: Deploy
+          command: |
+            export NPM_TOKEN=${SNAPSHOT_NPM_TOKEN}
+            npm config set ${NPM_PACKAGE_SCOPE}:registry ${NPM_SNAPSHOT_REPO}
+            yarn build || true
+            npx semantic-release
+  release:
+    docker:
+      - image: cimg/node:lts
+    steps:
+      - checkout
+      - run: yarn install --frozen-lockfile --non-interactive
+      - run: echo "Running release job"
+      - run: yarn build || true
+      - run:
+          name: Deploy
+          command: npx semantic-release
+
+workflows:
+  version: 2
+  release:
+    jobs:
+      - release-snapshot:
+          context: Mark
+          filters:
+            branches:
+              only:
+                - /^feature\/.+$/
+      - release:
+          context: Mark
+          filters:
+            branches:
+              only:
+                - main
