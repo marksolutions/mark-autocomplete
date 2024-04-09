@@ -20,7 +20,7 @@ jobs:
       - checkout
       - run: yarn install --frozen-lockfile --non-interactive
       - run: echo "Running release job"
-      - run: yarn build || true
+      - run: yarn build
       - run:
           name: Deploy
           command: npx semantic-release
