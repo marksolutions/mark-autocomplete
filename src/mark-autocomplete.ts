@@ -277,9 +277,7 @@ export class MarkAutocomplete<T = unknown> extends LitElement {
     this.contentElement.value = this._getItemText(value);
     this._emptyItems();
 
-    this.dispatchEvent(
-      new Event('change'),
-    );
+    this.dispatchEvent(new Event('change'));
 
     this.close();
   }
@@ -483,3 +481,4 @@ export class MarkAutocomplete<T = unknown> extends LitElement {
     this._itemTextProvider = this.itemTextProvider;
   }
 }
+
