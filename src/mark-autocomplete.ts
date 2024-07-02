@@ -1,7 +1,6 @@
 import { LitElement, PropertyValueMap, TemplateResult, css, html } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
-import { debounce, filter, get } from 'lodash-es';
 
 type Direction = 'up' | 'down';
 
@@ -12,6 +11,20 @@ const KEY_CODES = {
   DOWN_ARROW: 40,
   ENTER: 13,
   ESCAPE: 27,
+};
+
+export const debounce = <T extends (...args: any[]) => any>(fn: T): ((...args: Parameters<T>) => void) => {
+  let frame: number | null = null;
+
+  return (...params: Parameters<T>): void => {
+    if (frame !== null) {
+      cancelAnimationFrame(frame);
+    }
+
+    frame = requestAnimationFrame(() => {
+      fn(...params);
+    });
+  };
 };
 
 @customElement('mark-autocomplete')
@@ -138,7 +151,7 @@ export class MarkAutocomplete<T = unknown> extends LitElement {
    * When `itemTextProvider` is specified, this is ignored.
    */
   @property({ type: String })
-  textExpression: string;
+  textExpression: keyof T;
 
   /**
    * Provides any Block element to represent list items.
@@ -204,7 +217,7 @@ export class MarkAutocomplete<T = unknown> extends LitElement {
 
     this._computeItemTextProvider();
 
-    this._onUserInteraction = debounce(this._onUserInteraction.bind(this), 100);
+    this._onUserInteraction = debounce(this._onUserInteraction.bind(this));
   }
 
   protected override willUpdate(_changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>): void {
@@ -450,7 +463,7 @@ export class MarkAutocomplete<T = unknown> extends LitElement {
     const lowercaseQuery = query.toLowerCase();
     let results = [];
 
-    results = filter(items, item => {
+    results = items.filter(item => {
       const itemText = this._getItemText(item).toLowerCase();
       return itemText.includes(lowercaseQuery);
     });
@@ -474,11 +487,10 @@ export class MarkAutocomplete<T = unknown> extends LitElement {
     }
 
     if (this.textExpression) {
-      this._itemTextProvider = item => get(item, `${this.textExpression}`);
+      this._itemTextProvider = item => item?.[this.textExpression] ?? '';
       return;
     }
 
     this._itemTextProvider = this.itemTextProvider;
   }
 }
-
